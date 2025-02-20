@@ -28,7 +28,7 @@ router
         const newTask = new Task({id, description, status}) 
     
         await newTask.save()
-        res.status(200).send("Pessoa adicionada")
+        res.status(200).send("Task adicionada")
         
     } catch (error) {
         res.status(400).send("Erro ao dar post")
@@ -36,4 +36,25 @@ router
 
 })
 
+.patch('/tasks/:id', async (req: Request, res: Response) => {
+    try {
+        const {status} = req.body;
+        const { id } = req.params;
+    
+        await Task.findByIdAndUpdate(id, {status: status});
+        res.status(200).send("Task atualizada")
+    } catch (error) {
+        res.status(400).send("Erro ao dar patch")
+    }
+})
 
+.delete('tasks/:id', async (req: Request, res: Response) => {
+    try {
+        const {id} = req.params;
+
+        await Task.findByIdAndDelete(id);
+        res.status(200).send("Task eliminada")
+    } catch (error) {
+        res.status(400).send("Erro ao dar delete")
+    }
+})
