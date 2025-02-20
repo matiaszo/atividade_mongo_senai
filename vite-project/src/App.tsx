@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-
+import Some from "./components/Task"
 interface taskInterface {
   id: string;
   name: string;
@@ -33,6 +33,9 @@ function App()
     <>
       <div className="flex justify-center items-center w-[100%]">
         <p className="flex w-30 justify-center text-xl font-bold rounded-sm bg-red-50">To do list</p>
+      </div>
+      <div className="flex items-center justify-center mt-10 ">
+        <Some name="nome" status={12}/>
       </div>
     </>
   )
