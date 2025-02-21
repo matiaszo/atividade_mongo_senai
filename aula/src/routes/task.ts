@@ -3,7 +3,7 @@ import Task from "../model/task.ts";
 
 interface ITask
 {
-    id: string,
+    id?: string,
     description: string,
     status: number
 }
@@ -11,21 +11,21 @@ interface ITask
 const router: Router = express.Router();
 
 router
-.get('/tasks', (req: Request, res: Response) => {
+.get('', async (req: Request, res: Response) => {
     try {
-        const allTasks = Task.find()
+        const allTasks = await Task.find()
         res.status(200).send(allTasks);
     } catch (error) {
-        res.status(400).send("Erro ao dar get")
+        res.status(400).send(`Error to retrieve tasks: ${error}`)
     }
 })
 
-.post('/tasks', async (req: Request, res: Response) => {
+.post('', async (req: Request, res: Response) => {
 
     try {
-        const {id, description, status} = req.body
+        const {description, status} = req.body
     
-        const newTask = new Task({id, description, status}) 
+        const newTask = new Task({description, status}) 
     
         await newTask.save()
         res.status(200).send("Task adicionada")
@@ -58,3 +58,5 @@ router
         res.status(400).send("Erro ao dar delete")
     }
 })
+
+export default router

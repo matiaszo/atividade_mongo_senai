@@ -13,4 +13,4 @@ app.use(cors({
 connectDB();
 initRoutes(app);
 
-app.listen(port, () => console.log(`Acesse: http://localhost:${port}/`));
+app.listen(port, () => console.log(`Acesse: http://localhost:${port}`));
