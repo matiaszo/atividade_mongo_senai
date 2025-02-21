@@ -1,5 +1,5 @@
 import express from 'express';
-import initRoutes from "./routes/routes.ts"
+import initRoutes from "./app.ts"
 import connectDB from "./database/mongo.ts"
 import cors from 'cors';
 
