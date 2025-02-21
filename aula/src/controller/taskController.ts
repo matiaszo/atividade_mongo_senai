@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Task from "../model/task.ts";
+import Task from "../model/task.model.ts";
 
 class  taskController
 {

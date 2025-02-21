@@ -1,10 +1,17 @@
-import pkg from 'jsonwebtoken';
+import pkg, { JwtPayload } from 'jsonwebtoken';
+import { NextFunction, Request, Response } from "express";
+import AppError from '../AppError.ts';
 const { verify } = pkg;
 
+interface IToken {
+    id?: string, 
+    userType?: string
+}
 
-export async function validateToken(req, res, next) {
 
-    console.log("Validando token...")
+export async function validateToken(req: Request, res: Response, next: NextFunction) {
+
+    console.log("Token validation begin...")
     
     let token = req.headers.authorization;
 
@@ -27,9 +34,13 @@ export async function validateToken(req, res, next) {
 
 
             if (decoded) {
-                res.locals.userID = decoded.userID;
-                res.locals.userType = decoded.userType;
+
+                const payload = decoded as JwtPayload;
+
+                res.locals.userID = payload.id;
+                res.locals.userType = payload.userType;
             } else {
+                
                 throw new AppError('Invalid token', 401);
             }
         }

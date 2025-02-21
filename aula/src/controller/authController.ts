@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Task from "../model/task.ts";
+import Task from "../model/task.model.ts";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";

@@ -1,6 +1,6 @@
 import { Express } from 'express';
 import express from 'express'
-import auth from './routes/auth.ts';
+import auth from './routes/auth.routes.ts';
 import task from "./routes/task.routes.ts";
 
 export default function (app: Express) {
