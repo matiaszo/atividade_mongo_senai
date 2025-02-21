@@ -1,13 +1,6 @@
 import express, { Request, Response, Router } from 'express';
 import Task from "../model/task.ts";
 
-interface ITask
-{
-    id?: string,
-    description: string,
-    status: number
-}
-
 const router: Router = express.Router();
 
 router
@@ -28,34 +21,35 @@ router
         const newTask = new Task({description, status}) 
     
         await newTask.save()
-        res.status(200).send("Task adicionada")
+        res.status(200).send({message: "Task added succesfully.", task: newTask})
         
     } catch (error) {
-        res.status(400).send("Erro ao dar post")
+        res.status(400).send({message: `Error to create task: ${error}` , task: null})
     }
 
 })
 
-.patch('/tasks/:id', async (req: Request, res: Response) => {
+.patch(':id', async (req: Request, res: Response) => {
     try {
         const {status} = req.body;
         const { id } = req.params;
     
         await Task.findByIdAndUpdate(id, {status: status});
-        res.status(200).send("Task atualizada")
+        res.status(200).send({message: "Task updated succesfully.", task: await Task.findById(id)})
+
     } catch (error) {
-        res.status(400).send("Erro ao dar patch")
+        res.status(400).send({message: `Error to update task: ${error}` , task: null})
     }
 })
 
-.delete('tasks/:id', async (req: Request, res: Response) => {
+.delete(':id', async (req: Request, res: Response) => {
     try {
         const {id} = req.params;
 
         await Task.findByIdAndDelete(id);
-        res.status(200).send("Task eliminada")
+        res.status(200).send("Task deleted succesfully.")
     } catch (error) {
-        res.status(400).send("Erro ao dar delete")
+        res.status(400).send("Error to delete.")
     }
 })
 
